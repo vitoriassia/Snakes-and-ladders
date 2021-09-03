@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:snakes_and_ladders/ui/screens/start_screen/widgets/choice_type_player_widget.dart';
+import 'package:snakes_and_ladders/ui/sharedWidgets/default_dialog.dart';
 import 'package:snakes_and_ladders/ui/sharedWidgets/sweet_button.dart';
+import 'package:snakes_and_ladders/utils/dialog_transition.dart';
 
 class StartScreen extends StatelessWidget {
   @override
@@ -34,7 +37,13 @@ class StartScreen extends StatelessWidget {
                     color: Colors.white,
                     borderColor: Colors.green[800]!,
                     isEnable: true,
-                    onPressed: () {},
+                    onPressed: () {
+                      dialogTransitionScale(context,
+                          child: DefaultAppDialog(
+                              child: ChoiceTypePlayerWidget(),
+                              height:
+                                  MediaQuery.of(context).size.height * 0.5));
+                    },
                     textcolor: Colors.green[800]!,
                     icon: Icons.play_arrow),
               )
