@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:snakes_and_ladders/ui/screens/home_screen/home_screen.dart';
+import 'package:snakes_and_ladders/ui/screens/start_screen/start_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeScreen(),
+      home: StartScreen(),
     );
   }
 }
