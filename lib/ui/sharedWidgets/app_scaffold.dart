@@ -4,7 +4,7 @@ import 'package:snakes_and_ladders/constants.dart';
 class AppScaffold extends StatelessWidget {
   final Widget body;
   final bool? buttonFloat;
-  final functionFloat;
+  final Function()? functionFloat;
   AppScaffold({required this.body, this.buttonFloat, this.functionFloat});
 
   @override
@@ -20,7 +20,7 @@ class AppScaffold extends StatelessWidget {
                       width: 55.0,
                       child: FloatingActionButton(
                         onPressed: functionFloat,
-                        child: Icon(Icons.add),
+                        child: Icon(Icons.casino),
                         backgroundColor: kPrimaryColor,
                       ),
                     )

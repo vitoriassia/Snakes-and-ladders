@@ -11,9 +11,9 @@ class _BoardWidgetState extends State<BoardWidget> {
     return Card(
       elevation: 5,
       child: Container(
-        child: Image.asset(
-          'assets/board_image.png',
-        ),
+        width: 600,
+        child: Image.asset('assets/board_image.png',
+            height: 400, fit: BoxFit.fill),
       ),
     );
   }
