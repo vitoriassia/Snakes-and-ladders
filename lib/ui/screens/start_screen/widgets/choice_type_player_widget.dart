@@ -67,11 +67,14 @@ class _ChoiceTypePlayerWidgetState extends State<ChoiceTypePlayerWidget> {
                                 duration: Duration(milliseconds: 500),
                                 style: playerOne
                                     ? kTitleStyle.copyWith(
-                                        color: blueAppColor, fontSize: 12)
+                                        color: blueAppColor,
+                                        fontSize: 14,
+                                      )
                                     : kTitleStyle.copyWith(
                                         color: Colors.green, fontSize: 0),
                                 child: Text(
                                   'Seja o primeiro a jogar!',
+                                  textAlign: TextAlign.center,
                                 ),
                               ),
                             )
@@ -121,11 +124,12 @@ class _ChoiceTypePlayerWidgetState extends State<ChoiceTypePlayerWidget> {
                                 duration: Duration(milliseconds: 500),
                                 style: playerTwo
                                     ? kTitleStyle.copyWith(
-                                        color: redAppColor, fontSize: 12)
+                                        color: redAppColor, fontSize: 14)
                                     : kTitleStyle.copyWith(
                                         color: Colors.green, fontSize: 0),
                                 child: Text(
                                   'Seja o segundo a jogar!',
+                                  textAlign: TextAlign.center,
                                 ),
                               ),
                             )
