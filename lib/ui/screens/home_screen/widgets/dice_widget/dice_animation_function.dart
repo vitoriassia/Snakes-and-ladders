@@ -6,11 +6,11 @@ import 'package:snakes_and_ladders/utils/navigation.dart';
 
 Future<int> diceAnimationFuntion(context) async {
   dialogTransitionScale(context, child: DialogDice(true));
-  var randomNumber = new Random();
-  await Future.delayed(Duration(seconds: 2));
+
+  await Future.delayed(Duration(seconds: 3, milliseconds: 0));
   navigationBack(context: context);
-  int numberOne = randomNumber.nextInt(6);
-  int numberTwo = randomNumber.nextInt(6);
+  int numberOne = random(1, 7);
+  int numberTwo = random(1, 7);
   await dialogTransitionScale(
     context,
     child: DialogDice(
@@ -20,4 +20,9 @@ Future<int> diceAnimationFuntion(context) async {
     ),
   );
   return numberOne + numberTwo;
+}
+
+random(min, max) {
+  var rn = new Random();
+  return min + rn.nextInt(max - min);
 }
