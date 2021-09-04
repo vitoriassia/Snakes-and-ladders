@@ -2,24 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:snakes_and_ladders/constants.dart';
 
 class LoadingDice extends StatelessWidget {
-  final bool isVisible;
-  LoadingDice(this.isVisible);
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-        duration: Duration(milliseconds: 200),
-        width: isVisible ? 120 : 0,
-        decoration: BoxDecoration(
-            color: kPrimaryColor, borderRadius: BorderRadius.circular(8)),
-        child: isVisible
-            ? Container(
-                child: Image.asset(
-                  "assets/loading_dice.gif",
-                  width: 80,
-                  height: 80,
-                  fit: BoxFit.fill,
-                ),
-              )
-            : Container());
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          height: 200.0,
+          width: 200.0,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(
+                "assets/dados_loading.gif",
+              ),
+              fit: BoxFit.fill,
+            ),
+            shape: BoxShape.circle,
+          ),
+        ),
+        Text(
+          "Jogando os Dados...",
+          style: kTitleStyle.copyWith(color: Colors.white),
+        )
+      ],
+    );
   }
 }

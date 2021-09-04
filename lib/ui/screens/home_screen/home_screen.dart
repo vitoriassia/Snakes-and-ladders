@@ -2,9 +2,13 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:snakes_and_ladders/models/player_model.dart';
 import 'package:snakes_and_ladders/ui/screens/home_screen/widgets/board_widget.dart';
+import 'package:snakes_and_ladders/ui/screens/home_screen/widgets/dice_widget/dialog_dice_widget.dart';
+import 'package:snakes_and_ladders/ui/screens/home_screen/widgets/dice_widget/dice_animation_function.dart';
 import 'package:snakes_and_ladders/ui/screens/home_screen/widgets/players_widget/player_card_widget.dart';
 import 'package:snakes_and_ladders/ui/sharedWidgets/app_scaffold.dart';
+import 'package:snakes_and_ladders/ui/sharedWidgets/default_dialog.dart';
 import 'package:snakes_and_ladders/ui/sharedWidgets/sweet_button.dart';
+import 'package:snakes_and_ladders/utils/dialog_transition.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String id = 'home_screen';
@@ -58,16 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Colors.white,
                     borderColor: Colors.green[800]!,
                     isEnable: true,
-                    onPressed: () {
-                      setState(() {
-                        _turnPlayer =
-                            _turnPlayer.id == 1 ? _playerTwo : _playerOne;
-
-                        _expandableControllerPlayerOne.value =
-                            !_expandableControllerPlayerOne.value;
-                        _expandableControllerPlayerTwo.value =
-                            !_expandableControllerPlayerTwo.value;
-                      });
+                    onPressed: () async {
+                      await rollDice();
                     },
                     textcolor: Colors.green[800]!,
                     icon: Icons.casino),
@@ -75,5 +71,19 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ));
+  }
+
+  rollDice() async {
+    int result = await diceAnimationFuntion(context);
+    setState(() {
+      _turnPlayer = _turnPlayer.id == 1 ? _playerTwo : _playerOne;
+
+      _expandableControllerPlayerOne.value =
+          !_expandableControllerPlayerOne.value;
+      _expandableControllerPlayerTwo.value =
+          !_expandableControllerPlayerTwo.value;
+    });
+
+    print("ANDE  -> $result casas");
   }
 }
