@@ -11,41 +11,53 @@ class AppScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        DefaultTabController(
-          length: 7,
-          child: Scaffold(
-              floatingActionButton: buttonFloat != null
-                  ? Container(
-                      height: 55,
-                      width: 55.0,
-                      child: FloatingActionButton(
-                        onPressed: functionFloat,
-                        child: Icon(Icons.casino),
-                        backgroundColor: kPrimaryColor,
-                      ),
-                    )
-                  : null,
-              appBar: AppBar(
-                centerTitle: true,
-                elevation: 0.0,
-                iconTheme: IconThemeData(
-                  color: Colors.white,
-                ),
-                backgroundColor: kPrimaryColor,
-                title: Text(
-                  'Snakes and ladders',
-                  style: TextStyle(
-                      color: kSecondColor,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ),
-                actions: <Widget>[],
+        Scaffold(
+            floatingActionButton: buttonFloat != null && buttonFloat!
+                ? Container(
+                    height: 55,
+                    width: 55.0,
+                    child: FloatingActionButton(
+                      onPressed: functionFloat,
+                      child: Icon(Icons.casino),
+                      backgroundColor: kPrimaryColor,
+                    ),
+                  )
+                : null,
+            appBar: AppBar(
+              centerTitle: true,
+              elevation: 0.0,
+              iconTheme: IconThemeData(
+                color: Colors.white,
               ),
-              body: Container(
-                color: Colors.grey[100],
-                child: body,
-              )),
-        ),
+              backgroundColor: Colors.green[800]!,
+              title: Text(
+                'Cobras e Escadas',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Play',
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              actions: <Widget>[],
+            ),
+            body: Container(
+              color: Colors.grey[100],
+              child: Stack(children: [
+                Image.asset(
+                  'assets/background_start_screen.jpeg',
+                  fit: BoxFit.cover,
+                  height: double.infinity,
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                ),
+                Container(
+                  color: Colors.white.withOpacity(0.30),
+                  height: double.infinity,
+                  width: double.infinity,
+                ),
+                body
+              ]),
+            )),
       ],
     );
   }

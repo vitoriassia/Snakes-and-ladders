@@ -1,7 +1,10 @@
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:snakes_and_ladders/models/player_model.dart';
 import 'package:snakes_and_ladders/ui/screens/home_screen/widgets/board_widget.dart';
-import 'package:snakes_and_ladders/ui/screens/home_screen/widgets/dice_widget/dice_widget.dart';
+import 'package:snakes_and_ladders/ui/screens/home_screen/widgets/players_widget/player_card_widget.dart';
 import 'package:snakes_and_ladders/ui/sharedWidgets/app_scaffold.dart';
+import 'package:snakes_and_ladders/ui/sharedWidgets/sweet_button.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String id = 'home_screen';
@@ -11,29 +14,64 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool _loadingDice = false;
+  PlayerModel _playerOne = PlayerModel(1, "Jogador 1", 0, 0);
+
+  PlayerModel _playerTwo = PlayerModel(2, "Jogador 2", 0, 0);
+  late PlayerModel _turnPlayer;
+
+  late ExpandableController _expandableControllerPlayerOne;
+  late ExpandableController _expandableControllerPlayerTwo;
+
+  @override
+  void initState() {
+    _turnPlayer = _playerOne;
+    _expandableControllerPlayerOne = ExpandableController();
+    _expandableControllerPlayerOne.value = true;
+    _expandableControllerPlayerTwo = ExpandableController();
+    _expandableControllerPlayerTwo.value = false;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-        functionFloat: () async {
-          setState(() {
-            _loadingDice = true;
-          });
-          await Future.delayed(Duration(seconds: 3, milliseconds: 760));
-          setState(() {
-            _loadingDice = false;
-          });
-        },
-        buttonFloat: true,
+        buttonFloat: false,
         body: SingleChildScrollView(
           child: Column(
             children: [
               BoardWidget(),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  DiceWidget(_loadingDice),
+                  PlayerCardWidget(_playerOne, _expandableControllerPlayerOne),
+                  SizedBox(width: 10),
+                  PlayerCardWidget(_playerTwo, _expandableControllerPlayerTwo),
+                  SizedBox(
+                    width: 10,
+                  ),
                 ],
-              )
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 50, right: 50, top: 15),
+                child: SweetButton(
+                    text: "Jogar Dados",
+                    color: Colors.white,
+                    borderColor: Colors.green[800]!,
+                    isEnable: true,
+                    onPressed: () {
+                      setState(() {
+                        _turnPlayer =
+                            _turnPlayer.id == 1 ? _playerTwo : _playerOne;
+
+                        _expandableControllerPlayerOne.value =
+                            !_expandableControllerPlayerOne.value;
+                        _expandableControllerPlayerTwo.value =
+                            !_expandableControllerPlayerTwo.value;
+                      });
+                    },
+                    textcolor: Colors.green[800]!,
+                    icon: Icons.casino),
+              ),
             ],
           ),
         ));

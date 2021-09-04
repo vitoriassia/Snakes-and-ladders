@@ -145,7 +145,7 @@ class _ChoiceTypePlayerWidgetState extends State<ChoiceTypePlayerWidget> {
                       icon: Icons.play_arrow,
                       color: playerOne ? blueAppColor : redAppColor,
                       onPress: () {
-                        navigationTowithAnimation(
+                        navigationTowithAnimationRemoveUtils(
                             context: context, page: HomeScreen());
                       },
                       text: 'JOGAR'),

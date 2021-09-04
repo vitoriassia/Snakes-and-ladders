@@ -15,7 +15,7 @@ void navigationTowithAnimation({required context, required page}) {
 }
 
 void navigationTowithAnimationRemoveUtils({required context, required page}) {
-  developer.log('Navigation Remove Until with Animation to :  -> ${page.id}',
+  developer.log('Navigation Remove Until with Animation to :  -> $page',
       name: 'NAVIGATION');
   Navigator.pushAndRemoveUntil(
     context,
