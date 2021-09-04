@@ -9,6 +9,7 @@ class SweetButton extends StatelessWidget {
   final Color borderColor;
   final bool isEnable;
   final bool? animatedText;
+  final String? imageIcon;
   const SweetButton(
       {required this.onPressed,
       required this.text,
@@ -17,6 +18,7 @@ class SweetButton extends StatelessWidget {
       required this.color,
       required this.borderColor,
       required this.isEnable,
+      this.imageIcon,
       this.animatedText})
       : super();
 
@@ -37,10 +39,12 @@ class SweetButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Icon(
-            icon,
-            color: isEnable ? textcolor : Colors.grey[600],
-          ),
+          imageIcon != null
+              ? Image.asset(imageIcon!, width: 40, height: 40)
+              : Icon(
+                  icon,
+                  color: isEnable ? textcolor : Colors.grey[600],
+                ),
           SizedBox(width: 16.0),
           Text(
             text,
