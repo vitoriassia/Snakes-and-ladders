@@ -93,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   movePlayerBoard(int numberOfMovement, PlayerModel playerModel) async {
-    await movePlayerWithDiceRollForward(11, playerModel, false);
+    await movePlayerWithDiceRollForward(numberOfMovement, playerModel, false);
     var ladders = laddersMovement(playerModel.position);
     var snakes = runSnakesMovement(playerModel.position);
     if (ladders != 0) {
