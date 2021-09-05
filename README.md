@@ -4,15 +4,15 @@
 
  1-> Instalar o <a href="https://flutter.dev/docs/get-started/install">Flutter</a> na sua máquina.
 
- 2-> E inserir o comando para rodar em debug:
+ 2-> E rodar o comando abaixo no diretório do projeto:
+ 
+ # Modo DEBUG
  ```console
 
 foo@terminal:~$ flutter run
 
 ```
-       
- 3-> Ou rodar em modo release:
-
+# Modo RELEASE
 ```console
 
 foo@terminal:~$ flutter run --release
