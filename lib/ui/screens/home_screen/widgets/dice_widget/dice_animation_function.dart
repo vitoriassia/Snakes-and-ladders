@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:snakes_and_ladders/ui/screens/home_screen/widgets/dice_widget/dialog_dice_widget.dart';
 import 'package:snakes_and_ladders/ui/sharedWidgets/climbing_stairs_indicator_widget.dart';
+import 'package:snakes_and_ladders/ui/sharedWidgets/snake_indicator_widget.dart';
 import 'package:snakes_and_ladders/utils/dialog_transition.dart';
 import 'package:snakes_and_ladders/utils/navigation.dart';
 
@@ -32,5 +33,12 @@ laddersAnimationFunction(context, int numberToUp) async {
   await dialogTransitionScale(
     context,
     child: ClimbingStairsIndicator(numberToUp),
+  );
+}
+
+snakesAnimationFunction(context) async {
+  await dialogTransitionScale(
+    context,
+    child: SnakeIndicatorWidget(),
   );
 }

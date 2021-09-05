@@ -93,39 +93,49 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   movePlayerBoard(int numberOfMovement, PlayerModel playerModel) async {
-    await simpleMoveWithDiceRoll(38, playerModel, false);
+    await movePlayerWithDiceRollForward(11, playerModel, false);
     var ladders = laddersMovement(playerModel.position);
+    var snakes = runSnakesMovement(playerModel.position);
     if (ladders != 0) {
       await laddersAnimationFunction(context, ladders);
-      await simpleMoveWithDiceRoll(ladders, playerModel, true);
+      await movePlayerWithDiceRollForward(ladders, playerModel, true);
+    } else if (snakes != 0) {
+      await snakesAnimationFunction(context);
+      setState(() {
+        playerModel.position = snakes;
+      });
     }
   }
 
-  Future<void> simpleMoveWithDiceRoll(
+  Future<void> movePlayerWithDiceRollForward(
       int numberOfMovement, PlayerModel playerModel, bool specialMove) async {
     for (var i = numberOfMovement; i > 0; i--) {
-      if (goForward(playerModel.position)) {
-        if (goUpLineForward(playerModel.position)) {
-          setState(() {
-            playerModel.position.bottom += 40;
-          });
-        } else {
-          setState(() {
-            playerModel.position.left += 35;
-          });
-        }
-      } else {
-        if (goUpLineBack(playerModel.position)) {
-          setState(() {
-            playerModel.position.bottom += 40;
-          });
-        } else {
-          setState(() {
-            playerModel.position.left -= 35;
-          });
-        }
-      }
+      movePlayerForward(playerModel);
       if (!specialMove) await Future.delayed(Duration(milliseconds: 600));
+    }
+  }
+
+  void movePlayerForward(PlayerModel playerModel) {
+    if (goForward(playerModel.position)) {
+      if (goUpLineForward(playerModel.position)) {
+        setState(() {
+          playerModel.position.bottom += 40;
+        });
+      } else {
+        setState(() {
+          playerModel.position.left += 35;
+        });
+      }
+    } else {
+      if (goUpLineBack(playerModel.position)) {
+        setState(() {
+          playerModel.position.bottom += 40;
+        });
+      } else {
+        setState(() {
+          playerModel.position.left -= 35;
+        });
+      }
     }
   }
 }
@@ -150,6 +160,27 @@ laddersMovement(Position position) {
   //coluna nove
   if (position.bottom == 323 && position.left == 211) return 7;
 
+  return 0;
+}
+
+runSnakesMovement(Position position) {
+  // coluna dois
+  if (position.bottom == 43 && position.left == 141) return Position(176, 3);
+  // coluna 5
+  if (position.bottom == 163 && position.left == 176) return Position(141, 83);
+  if (position.bottom == 163 && position.left == 281) return Position(316, 43);
+  //coluna 7
+  if (position.bottom == 243 && position.left == 36) return Position(36, 43);
+  if (position.bottom == 243 && position.left == 106) return Position(1, 203);
+  //coluna 8
+  if (position.bottom == 283 && position.left == 211) return Position(246, 203);
+  // coluna 9
+  if (position.bottom == 323 && position.left == 281) return Position(246, 243);
+
+  //coluna 10
+  if (position.bottom == 363 && position.left == 36) return Position(1, 283);
+  if (position.bottom == 363 && position.left == 176) return Position(176, 283);
+  if (position.bottom == 363 && position.left == 281) return Position(246, 323);
   return 0;
 }
 

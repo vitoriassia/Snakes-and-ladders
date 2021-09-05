@@ -4,9 +4,6 @@ import 'package:snakes_and_ladders/ui/sharedWidgets/sweet_button.dart';
 import 'package:snakes_and_ladders/utils/navigation.dart';
 
 class SnakeIndicatorWidget extends StatelessWidget {
-  final int positionToBack;
-
-  SnakeIndicatorWidget(this.positionToBack);
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
