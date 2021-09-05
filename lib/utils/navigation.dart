@@ -39,7 +39,7 @@ void navigationToRemoveUtilsByNamed({required context, required page}) {
 }
 
 void navigationToRemoveUtils({required context, required page}) {
-  developer.log('Navigation Remove Util to -> ${page.id}', name: 'NAVIGATION');
+  developer.log('Navigation Remove Util to -> $page', name: 'NAVIGATION');
   Navigator.pushAndRemoveUntil(context, page, (route) => false);
 }
 

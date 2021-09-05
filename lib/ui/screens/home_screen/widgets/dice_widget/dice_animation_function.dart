@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:snakes_and_ladders/ui/screens/home_screen/widgets/dice_widget/dialog_dice_widget.dart';
 import 'package:snakes_and_ladders/ui/sharedWidgets/climbing_stairs_indicator_widget.dart';
 import 'package:snakes_and_ladders/ui/sharedWidgets/snake_indicator_widget.dart';
+import 'package:snakes_and_ladders/ui/sharedWidgets/winner_indicator_widget.dart';
 import 'package:snakes_and_ladders/utils/dialog_transition.dart';
 import 'package:snakes_and_ladders/utils/navigation.dart';
 
@@ -40,5 +41,12 @@ snakesAnimationFunction(context) async {
   await dialogTransitionScale(
     context,
     child: SnakeIndicatorWidget(),
+  );
+}
+
+winnerAnimationFunction(context, int playerIdWinner) async {
+  await dialogTransitionScale(
+    context,
+    child: WinnerIndicatorWidget(playerIdWinner),
   );
 }

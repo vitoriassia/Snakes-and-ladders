@@ -7,6 +7,7 @@ import 'package:snakes_and_ladders/ui/screens/home_screen/widgets/dice_widget/di
 import 'package:snakes_and_ladders/ui/screens/home_screen/widgets/players_widget/player_card_widget.dart';
 import 'package:snakes_and_ladders/ui/sharedWidgets/app_scaffold.dart';
 import 'package:snakes_and_ladders/ui/sharedWidgets/sweet_button.dart';
+import 'package:snakes_and_ladders/utils/navigation.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String id = 'home_screen';
@@ -17,15 +18,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   PlayerModel _playerOne =
-      PlayerModel(1, "Jogador 1", 0, 0, position: Position(1, 3));
-  // PlayerModel _playerOne = PlayerModel(1, "Jogador 1", 0, 0,
-  //     position: Position(
-  //       316,
-  //       203,
-  //     ));
+      PlayerModel(1, "Jogador 1", 0, 1, position: Position(1, 3));
 
   PlayerModel _playerTwo =
-      PlayerModel(2, "Jogador 2", 0, 0, position: Position(36, 43));
+      PlayerModel(2, "Jogador 2", 0, 1, position: Position(1, 3));
   late PlayerModel _turnPlayer;
 
   late ExpandableController _expandableControllerPlayerOne;
@@ -39,6 +35,11 @@ class _HomeScreenState extends State<HomeScreen> {
     _expandableControllerPlayerTwo = ExpandableController();
     _expandableControllerPlayerTwo.value = false;
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -80,15 +81,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
   rollDice() async {
     int result = await diceAnimationFuntion(context);
+    setState(() {
+      _turnPlayer.id == 2
+          ? _playerTwo.numberOfPositionIndicator += result
+          : _playerOne.numberOfPositionIndicator += result;
+    });
     await movePlayerBoard(
         result, _turnPlayer.id == 1 ? _playerOne : _playerTwo);
     setState(() {
       _turnPlayer = _turnPlayer.id == 1 ? _playerTwo : _playerOne;
-
       _expandableControllerPlayerOne.value =
           !_expandableControllerPlayerOne.value;
       _expandableControllerPlayerTwo.value =
           !_expandableControllerPlayerTwo.value;
+      _turnPlayer.id == 2
+          ? _playerTwo.numberOfPlays++
+          : _playerOne.numberOfPlays++;
     });
   }
 
@@ -110,12 +118,19 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> movePlayerWithDiceRollForward(
       int numberOfMovement, PlayerModel playerModel, bool specialMove) async {
     for (var i = numberOfMovement; i > 0; i--) {
-      movePlayerForward(playerModel);
+      var continuelooping = movePlayerForward(playerModel);
       if (!specialMove) await Future.delayed(Duration(milliseconds: 600));
+
+      if (!continuelooping) {
+        await winnerAnimationFunction(context, playerModel.id);
+        navigationTowithAnimationRemoveUtils(
+            context: context, page: HomeScreen());
+        break;
+      }
     }
   }
 
-  void movePlayerForward(PlayerModel playerModel) {
+  bool movePlayerForward(PlayerModel playerModel) {
     if (goForward(playerModel.position)) {
       if (goUpLineForward(playerModel.position)) {
         setState(() {
@@ -137,6 +152,14 @@ class _HomeScreenState extends State<HomeScreen> {
         });
       }
     }
+    if (isWinnerPosition(playerModel.position)) {
+      return false;
+    } else
+      return true;
+  }
+
+  bool isWinnerPosition(Position position) {
+    return position.bottom == 363 && position.left == 1;
   }
 }
 

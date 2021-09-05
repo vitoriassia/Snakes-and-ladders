@@ -4,7 +4,7 @@ class PlayerModel {
   int id;
   String name;
   int numberOfPlays;
-  int numberOfPositionIndicator;
+  int numberOfPositionIndicator = 1;
   Position position;
   PlayerModel(
       this.id, this.name, this.numberOfPlays, this.numberOfPositionIndicator,
