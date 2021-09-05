@@ -4,7 +4,7 @@
 
  1-> Instalar o <a href="https://flutter.dev/docs/get-started/install">Flutter</a> na sua máquina.
 
- 2-> E rodar o comando para rodar em debug:
+ 2-> E inserir o comando para rodar em debug:
  ```console
 
 foo@terminal:~$ flutter run
