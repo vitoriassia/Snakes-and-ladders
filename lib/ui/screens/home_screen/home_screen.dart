@@ -18,6 +18,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   PlayerModel _playerOne =
       PlayerModel(1, "Jogador 1", 0, 0, position: Position(1, 3));
+  // PlayerModel _playerOne = PlayerModel(1, "Jogador 1", 0, 0,
+  //     position: Position(
+  //       316,
+  //       203,
+  //     ));
 
   PlayerModel _playerTwo =
       PlayerModel(2, "Jogador 2", 0, 0, position: Position(36, 43));
@@ -88,6 +93,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   movePlayerBoard(int numberOfMovement, PlayerModel playerModel) async {
+    await simpleMoveWithDiceRoll(38, playerModel, false);
+    var ladders = laddersMovement(playerModel.position);
+    if (ladders != 0) {
+      await laddersAnimationFunction(context, ladders);
+      await simpleMoveWithDiceRoll(ladders, playerModel, true);
+    }
+  }
+
+  Future<void> simpleMoveWithDiceRoll(
+      int numberOfMovement, PlayerModel playerModel, bool specialMove) async {
     for (var i = numberOfMovement; i > 0; i--) {
       if (goForward(playerModel.position)) {
         if (goUpLineForward(playerModel.position)) {
@@ -110,9 +125,32 @@ class _HomeScreenState extends State<HomeScreen> {
           });
         }
       }
-      await Future.delayed(Duration(milliseconds: 600));
+      if (!specialMove) await Future.delayed(Duration(milliseconds: 600));
     }
   }
+}
+
+laddersMovement(Position position) {
+  // coluna um
+  if (position.bottom == 3 && position.left == 36) return 36;
+  if (position.bottom == 3 && position.left == 211) return 7;
+  if (position.bottom == 3 && position.left == 246) return 23;
+  // coluna dois
+  if (position.bottom == 43 && position.left == 176) return 11;
+  // coluna tres
+  if (position.bottom == 83 && position.left == 1) return 21;
+  if (position.bottom == 83 && position.left == 246) return 56;
+  // coluna quatro
+  if (position.bottom == 123 && position.left == 141) return 8;
+  //coluna seis
+  if (position.bottom == 203 && position.left == 316) return 16;
+  // coluna oito
+  if (position.bottom == 283 && position.left == 71) return 20;
+  if (position.bottom == 283 && position.left == 316) return 20;
+  //coluna nove
+  if (position.bottom == 323 && position.left == 211) return 7;
+
+  return 0;
 }
 
 goForward(Position position) {
