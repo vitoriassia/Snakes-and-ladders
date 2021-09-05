@@ -107,10 +107,14 @@ class _HomeScreenState extends State<HomeScreen> {
     if (ladders != 0) {
       await laddersAnimationFunction(context, ladders);
       await movePlayerWithDiceRollForward(ladders, playerModel, true);
-    } else if (snakes != 0) {
+      setState(() {
+        playerModel.numberOfPositionIndicator += ladders;
+      });
+    } else if (snakes.numberOfPosition != 0) {
       await snakesAnimationFunction(context);
       setState(() {
         playerModel.position = snakes;
+        playerModel.numberOfPositionIndicator -= snakes.numberOfPosition!;
       });
     }
   }
@@ -163,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-laddersMovement(Position position) {
+int laddersMovement(Position position) {
   // coluna um
   if (position.bottom == 3 && position.left == 36) return 36;
   if (position.bottom == 3 && position.left == 211) return 7;
@@ -186,25 +190,34 @@ laddersMovement(Position position) {
   return 0;
 }
 
-runSnakesMovement(Position position) {
+Position runSnakesMovement(Position position) {
   // coluna dois
-  if (position.bottom == 43 && position.left == 141) return Position(176, 3);
+  if (position.bottom == 43 && position.left == 141)
+    return Position(176, 3, numberOfPosition: 10);
   // coluna 5
-  if (position.bottom == 163 && position.left == 176) return Position(141, 83);
-  if (position.bottom == 163 && position.left == 281) return Position(316, 43);
+  if (position.bottom == 163 && position.left == 176)
+    return Position(141, 83, numberOfPosition: 21);
+  if (position.bottom == 163 && position.left == 281)
+    return Position(316, 43, numberOfPosition: 38);
   //coluna 7
-  if (position.bottom == 243 && position.left == 36) return Position(36, 43);
-  if (position.bottom == 243 && position.left == 106) return Position(1, 203);
+  if (position.bottom == 243 && position.left == 36)
+    return Position(36, 43, numberOfPosition: 43);
+  if (position.bottom == 243 && position.left == 106)
+    return Position(1, 203, numberOfPosition: 4);
   //coluna 8
-  if (position.bottom == 283 && position.left == 211) return Position(246, 203);
+  if (position.bottom == 283 && position.left == 211)
+    return Position(246, 203, numberOfPosition: 21);
   // coluna 9
-  if (position.bottom == 323 && position.left == 281) return Position(246, 243);
-
+  if (position.bottom == 323 && position.left == 281)
+    return Position(246, 243, numberOfPosition: 21);
   //coluna 10
-  if (position.bottom == 363 && position.left == 36) return Position(1, 283);
-  if (position.bottom == 363 && position.left == 176) return Position(176, 283);
-  if (position.bottom == 363 && position.left == 281) return Position(246, 323);
-  return 0;
+  if (position.bottom == 363 && position.left == 36)
+    return Position(1, 283, numberOfPosition: 19);
+  if (position.bottom == 363 && position.left == 176)
+    return Position(176, 283, numberOfPosition: 20);
+  if (position.bottom == 363 && position.left == 281)
+    return Position(246, 323, numberOfPosition: 4);
+  return Position(0, 0, numberOfPosition: 0);
 }
 
 goForward(Position position) {

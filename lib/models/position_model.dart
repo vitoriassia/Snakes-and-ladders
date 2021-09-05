@@ -1,5 +1,6 @@
 class Position {
   double left;
   double bottom;
-  Position(this.left, this.bottom);
+  int? numberOfPosition;
+  Position(this.left, this.bottom, {this.numberOfPosition});
 }
