@@ -75,6 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   rollDice() async {
     int result = await diceAnimationFuntion(context);
+    movePlayerBoard(result, _turnPlayer.id == 1 ? _playerOne : _playerTwo);
     setState(() {
       _turnPlayer = _turnPlayer.id == 1 ? _playerTwo : _playerOne;
 
@@ -83,7 +84,61 @@ class _HomeScreenState extends State<HomeScreen> {
       _expandableControllerPlayerTwo.value =
           !_expandableControllerPlayerTwo.value;
     });
-
-    print("ANDE  -> $result casas");
   }
+
+  movePlayerBoard(int numberOfMovement, PlayerModel playerModel) {
+    for (var i = numberOfMovement; i > 0; i--) {
+      print("left ->" +
+          playerModel.position.left.toString() +
+          "bottom -> " +
+          playerModel.position.bottom.toString());
+      if (goForward(playerModel.position)) {
+        if (goUpLineForward(playerModel.position)) {
+          setState(() {
+            playerModel.position.bottom += 40;
+          });
+        } else {
+          setState(() {
+            playerModel.position.left += 35;
+          });
+        }
+      } else {
+        if (goUpLineBack(playerModel.position)) {
+          setState(() {
+            playerModel.position.bottom += 40;
+          });
+        } else {
+          setState(() {
+            playerModel.position.left -= 35;
+          });
+        }
+      }
+    }
+  }
+}
+
+goForward(Position position) {
+  return position.bottom != 43 &&
+      position.bottom != 123 &&
+      position.bottom != 203 &&
+      position.bottom != 283 &&
+      position.bottom != 363;
+}
+
+goUpLineForward(Position position) {
+  return position.left == 316 &&
+      (position.bottom == 3 ||
+          position.bottom == 83 ||
+          position.bottom == 163 ||
+          position.bottom == 243 ||
+          position.bottom == 323);
+}
+
+goUpLineBack(Position position) {
+  return position.left == 1 &&
+      ((position.bottom == 43 ||
+          position.bottom == 123 ||
+          position.bottom == 203 ||
+          position.bottom == 283 ||
+          position.bottom == 363));
 }
