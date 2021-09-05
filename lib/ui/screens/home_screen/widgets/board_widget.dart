@@ -17,7 +17,7 @@ class BoardWidget extends StatelessWidget {
             Image.asset('assets/board_image.png',
                 height: 400, fit: BoxFit.fill),
             AnimatedPositioned(
-              duration: Duration(seconds: 1),
+              duration: Duration(milliseconds: 400),
               child: IndicatorPlayerMove(_playerOne.id),
               width: 35,
               height: 35,
@@ -25,7 +25,7 @@ class BoardWidget extends StatelessWidget {
               bottom: _playerOne.position.bottom,
             ),
             AnimatedPositioned(
-              duration: Duration(seconds: 1),
+              duration: Duration(milliseconds: 400),
               child: IndicatorPlayerMove(_playerTwo.id),
               width: 35,
               height: 35,

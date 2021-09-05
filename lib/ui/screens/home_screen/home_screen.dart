@@ -75,7 +75,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   rollDice() async {
     int result = await diceAnimationFuntion(context);
-    movePlayerBoard(result, _turnPlayer.id == 1 ? _playerOne : _playerTwo);
+    await movePlayerBoard(
+        result, _turnPlayer.id == 1 ? _playerOne : _playerTwo);
     setState(() {
       _turnPlayer = _turnPlayer.id == 1 ? _playerTwo : _playerOne;
 
@@ -86,12 +87,8 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  movePlayerBoard(int numberOfMovement, PlayerModel playerModel) {
+  movePlayerBoard(int numberOfMovement, PlayerModel playerModel) async {
     for (var i = numberOfMovement; i > 0; i--) {
-      print("left ->" +
-          playerModel.position.left.toString() +
-          "bottom -> " +
-          playerModel.position.bottom.toString());
       if (goForward(playerModel.position)) {
         if (goUpLineForward(playerModel.position)) {
           setState(() {
@@ -113,6 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
           });
         }
       }
+      await Future.delayed(Duration(milliseconds: 600));
     }
   }
 }
