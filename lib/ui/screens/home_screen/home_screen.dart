@@ -1,6 +1,7 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:snakes_and_ladders/models/player_model.dart';
+import 'package:snakes_and_ladders/models/position_model.dart';
 import 'package:snakes_and_ladders/ui/screens/home_screen/widgets/board_widget.dart';
 import 'package:snakes_and_ladders/ui/screens/home_screen/widgets/dice_widget/dice_animation_function.dart';
 import 'package:snakes_and_ladders/ui/screens/home_screen/widgets/players_widget/player_card_widget.dart';
@@ -15,9 +16,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  PlayerModel _playerOne = PlayerModel(1, "Jogador 1", 0, 0);
+  PlayerModel _playerOne =
+      PlayerModel(1, "Jogador 1", 0, 0, position: Position(1, 3));
 
-  PlayerModel _playerTwo = PlayerModel(2, "Jogador 2", 0, 0);
+  PlayerModel _playerTwo =
+      PlayerModel(2, "Jogador 2", 0, 0, position: Position(36, 43));
   late PlayerModel _turnPlayer;
 
   late ExpandableController _expandableControllerPlayerOne;
@@ -40,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              BoardWidget(),
+              BoardWidget(_playerOne, _playerTwo),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
